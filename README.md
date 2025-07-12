@@ -1,6 +1,7 @@
 # DevOps Test Task
 
-![CI](https://github.com/<твій_юзернейм>/devops-test-task-<твоє_імʼя>/actions/workflows/run-script.yml/badge.svg)
+![CI](https://github.com/TanasiienkoAnastasia/devops-test-task-anastasiia/actions/workflows/run-script.yml/badge.svg)
+
 
 Repository for TS Trainee DevOps test task.
 
