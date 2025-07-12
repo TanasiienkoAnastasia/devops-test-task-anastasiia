@@ -1,0 +1,48 @@
+name: Run hello.sh Script
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      custom_log:
+        description: 'Custom log file name'
+        required: false
+        default: ''
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare directories
+        run: |
+          mkdir -p output logs
+          echo "dummy" > output/test.txt
+
+      - name: Run hello.sh
+        run: |
+          chmod +x scripts/hello.sh
+          if [ -z "${{ github.event.inputs.custom_log }}" ]; then
+            ./scripts/hello.sh
+          else
+            ./scripts/hello.sh "${{ github.event.inputs.custom_log }}"
+          fi
+
+      - name: Check log file created
+        run: |
+          ls -la logs/
+          cat logs/history.txt
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: logs/
